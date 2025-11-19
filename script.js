@@ -468,6 +468,14 @@ async function handleCombinedChoice() {
     reaction: combinedReaction
   });
 
+  // Check if combination is traditional + handmade
+  const isTraditionalHandmade = gameState.selectedFlavor.key === 'traditional' && gameState.selectedPlate.key === 'handmade';
+
+  if (isTraditionalHandmade) {
+    // Show taco preview animation for 2 seconds
+    await showTacoPreview();
+  }
+
   // Wait a moment, then show dialog for reaction
   await new Promise(resolve => setTimeout(resolve, 300));
   showDialog();
@@ -482,6 +490,29 @@ async function handleCombinedChoice() {
   setTimeout(() => {
     document.getElementById('next-btn').classList.remove('hidden');
   }, 600);
+}
+
+async function showTacoPreview() {
+  const tacoPreview = document.getElementById('taco-preview');
+
+  // Remove hidden class and add show class to trigger animation
+  tacoPreview.classList.remove('hidden');
+
+  // Small delay to ensure DOM updates before adding show class
+  await new Promise(resolve => setTimeout(resolve, 50));
+  tacoPreview.classList.add('show');
+
+  // Wait 2 seconds while taco is visible
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  // Fade out by removing show class
+  tacoPreview.classList.remove('show');
+
+  // Wait for fade-out transition to complete
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  // Hide completely
+  tacoPreview.classList.add('hidden');
 }
 
 async function handleChoice(choiceIndex) {

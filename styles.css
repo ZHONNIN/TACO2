@@ -349,6 +349,35 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     display: none;
 }
 
+/* ==================== TACO PREVIEW ANIMATION ==================== */
+.taco-preview {
+    position: fixed;
+    bottom: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    transition: bottom 0.8s ease-out, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.taco-preview.hidden {
+    display: none;
+}
+
+.taco-preview.show {
+    display: block;
+    bottom: 20%;
+    opacity: 1;
+}
+
+.taco-preview img {
+    max-width: 400px;
+    width: 400px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+}
+
 /* ==================== OUTCOME SCENE ==================== */
 .outcome-content {
     max-width: 900px;
