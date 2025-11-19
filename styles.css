@@ -138,7 +138,7 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 
 /* ==================== CUSTOMER SCENE ==================== */
 .customer-header {
-    margin-top: 2rem;
+    margin-top: 3rem;
     margin-bottom: 2rem;
 }
 
@@ -163,15 +163,25 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Remove circular frame when showing image */
+.customer-portrait.has-image {
+    width: auto;
+    height: auto;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 2.5rem auto 2.5rem;
+}
+
 .emoji {
     font-size: 3.5rem;
 }
 
 .portrait-image {
-    max-width: 80%;
-    max-height: 100px;
+    max-width: 180px;
+    width: 180px;
     height: auto;
-    width: auto;
     object-fit: contain;
     display: block;
 }

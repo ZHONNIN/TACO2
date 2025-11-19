@@ -226,10 +226,14 @@ function loadCustomer() {
 
   // Handle emoji or image for customer portrait
   const emojiContainer = document.getElementById('customer-emoji');
+  const portraitContainer = emojiContainer.parentElement;
+
   if (customer.useImage && customer.imageSrc) {
     emojiContainer.innerHTML = `<img src="${customer.imageSrc}" alt="${customer.name}" class="portrait-image">`;
+    portraitContainer.classList.add('has-image');
   } else {
     emojiContainer.textContent = customer.emoji;
+    portraitContainer.classList.remove('has-image');
   }
 
   document.getElementById('customer-name').textContent = customer.name;
