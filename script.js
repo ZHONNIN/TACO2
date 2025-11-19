@@ -468,7 +468,7 @@ async function handleCombinedChoice() {
     reaction: combinedReaction
   });
 
-  // Check if combination is traditional flavor with any plate style
+  // Check if combination has a taco preview image
   let tacoImageSrc = null;
 
   if (gameState.selectedFlavor.key === 'traditional') {
@@ -478,6 +478,14 @@ async function handleCombinedChoice() {
       tacoImageSrc = 'Taco1-2.png';
     } else if (gameState.selectedPlate.key === 'garnish') {
       tacoImageSrc = 'Taco1-3.png';
+    }
+  } else if (gameState.selectedFlavor.key === 'spicy') {
+    if (gameState.selectedPlate.key === 'handmade') {
+      tacoImageSrc = 'Taco2-1.png';
+    } else if (gameState.selectedPlate.key === 'paper') {
+      tacoImageSrc = 'Taco2-2.png';
+    } else if (gameState.selectedPlate.key === 'garnish') {
+      tacoImageSrc = 'Taco2-3.png';
     }
   }
 
