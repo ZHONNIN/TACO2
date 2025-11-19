@@ -4,6 +4,8 @@ const CUSTOMERS = [
     id: 0,
     name: 'Overworked Office Worker',
     emoji: '💼',
+    useImage: true,
+    imageSrc: 'WorkerNormal.png',
     intro: "A tired man in a suit walks up to your stand. He says: \"It's been a long day... maybe food will help me breathe again.\"",
     reactions: {
       communication: {
@@ -221,7 +223,15 @@ function loadCustomer() {
 
   // Update customer info
   document.getElementById('customer-num').textContent = gameState.customerIndex + 1;
-  document.getElementById('customer-emoji').textContent = customer.emoji;
+
+  // Handle emoji or image for customer portrait
+  const emojiContainer = document.getElementById('customer-emoji');
+  if (customer.useImage && customer.imageSrc) {
+    emojiContainer.innerHTML = `<img src="${customer.imageSrc}" alt="${customer.name}" class="portrait-image">`;
+  } else {
+    emojiContainer.textContent = customer.emoji;
+  }
+
   document.getElementById('customer-name').textContent = customer.name;
 
   // Update round info
@@ -285,6 +295,8 @@ async function handleChoice(choiceIndex) {
     customerId: customer.id,
     customerName: customer.name,
     customerEmoji: customer.emoji,
+    customerUseImage: customer.useImage,
+    customerImageSrc: customer.imageSrc,
     roundType: round.type,
     roundName: round.name,
     choiceKey: choice.key,
@@ -342,6 +354,8 @@ function showOutcome() {
       customerGroups[log.customerId] = {
         name: log.customerName,
         emoji: log.customerEmoji,
+        useImage: log.customerUseImage,
+        imageSrc: log.customerImageSrc,
         choices: []
       };
     }
@@ -354,7 +368,11 @@ function showOutcome() {
     customerDiv.className = 'outcome-customer';
 
     const header = document.createElement('h3');
-    header.textContent = `${group.emoji} ${group.name}`;
+    if (group.useImage && group.imageSrc) {
+      header.innerHTML = `<img src="${group.imageSrc}" alt="${group.name}" class="outcome-portrait-image"> ${group.name}`;
+    } else {
+      header.textContent = `${group.emoji} ${group.name}`;
+    }
     customerDiv.appendChild(header);
 
     group.choices.forEach(choice => {

@@ -138,6 +138,7 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 
 /* ==================== CUSTOMER SCENE ==================== */
 .customer-header {
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -152,7 +153,7 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 .customer-portrait {
     width: 120px;
     height: 120px;
-    margin: 0 auto 1rem;
+    margin: 1.5rem auto 2rem;
     background: var(--card-bg);
     border: 3px solid var(--card-border);
     border-radius: 50%;
@@ -164,6 +165,15 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 
 .emoji {
     font-size: 3.5rem;
+}
+
+.portrait-image {
+    max-width: 80%;
+    max-height: 100px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .customer-name {
@@ -281,6 +291,16 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.outcome-portrait-image {
+    height: 1.5rem;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
 }
 
 .outcome-customer p {
