@@ -56,6 +56,9 @@ const CUSTOMERS = [
     id: 2,
     name: 'Art Student',
     emoji: '🎨',
+    useImage: true,
+    imageSrc: 'StudentNormal.png',
+    imageClass: 'portrait-image-student',
     intro: "A quiet young artist with paint on her hands appears. She says: \"I'm searching for inspiration... maybe flavor can spark it.\"",
     reactions: {
       communication: {
