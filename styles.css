@@ -186,6 +186,14 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     display: block;
 }
 
+.portrait-image-woman {
+    max-width: 270px;
+    width: 270px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
 .customer-name {
     font-size: 1.8rem;
     color: var(--text);

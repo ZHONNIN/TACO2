@@ -6,6 +6,7 @@ const CUSTOMERS = [
     emoji: '💼',
     useImage: true,
     imageSrc: 'WorkerNormal.png',
+    imageClass: 'portrait-image',
     intro: "A tired man in a suit walks up to your stand. He says: \"It's been a long day... maybe food will help me breathe again.\"",
     reactions: {
       communication: {
@@ -29,6 +30,9 @@ const CUSTOMERS = [
     id: 1,
     name: 'Immigrant Woman',
     emoji: '🧳',
+    useImage: true,
+    imageSrc: 'WomenNormal.png',
+    imageClass: 'portrait-image-woman',
     intro: "A woman carrying a small suitcase stops by. She says: \"Your food smells familiar... but the city feels so new.\"",
     reactions: {
       communication: {
@@ -229,7 +233,8 @@ function loadCustomer() {
   const portraitContainer = emojiContainer.parentElement;
 
   if (customer.useImage && customer.imageSrc) {
-    emojiContainer.innerHTML = `<img src="${customer.imageSrc}" alt="${customer.name}" class="portrait-image">`;
+    const imgClass = customer.imageClass || 'portrait-image';
+    emojiContainer.innerHTML = `<img src="${customer.imageSrc}" alt="${customer.name}" class="${imgClass}">`;
     portraitContainer.classList.add('has-image');
   } else {
     emojiContainer.textContent = customer.emoji;
@@ -326,6 +331,7 @@ async function handleChoice(choiceIndex) {
     customerEmoji: customer.emoji,
     customerUseImage: customer.useImage,
     customerImageSrc: customer.imageSrc,
+    customerImageClass: customer.imageClass,
     roundType: round.type,
     roundName: round.name,
     choiceKey: choice.key,
@@ -391,6 +397,7 @@ function showOutcome() {
         emoji: log.customerEmoji,
         useImage: log.customerUseImage,
         imageSrc: log.customerImageSrc,
+        imageClass: log.customerImageClass,
         choices: []
       };
     }
