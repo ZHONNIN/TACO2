@@ -4,17 +4,17 @@ const CUSTOMERS = [
     id: 0,
     name: 'Overworked Office Worker',
     emoji: '💼',
-    intro: "A tired man in a suit walks up to your stand. He says: "It's been a long day… maybe food will help me breathe again."",
+    intro: "A tired man in a suit walks up to your stand. He says: \"It's been a long day... maybe food will help me breathe again.\"",
     reactions: {
       communication: {
-        warm: "Thanks… feels nice to be noticed after a long day.",
+        warm: "Thanks... feels nice to be noticed after a long day.",
         respectful: "I appreciate the quiet. No small talk for once.",
         humor: "Haha, didn't expect to laugh tonight."
       },
       ingredients: {
         traditional: "This is comfort. Like home after overtime.",
         spicy: "Whoa! That actually woke me up.",
-        experimental: "Pineapple? That's… surprisingly good."
+        experimental: "Pineapple? That's... surprisingly good."
       },
       presentation: {
         handmade: "You even plated it nicely. That's care.",
@@ -27,22 +27,22 @@ const CUSTOMERS = [
     id: 1,
     name: 'Immigrant Woman',
     emoji: '🧳',
-    intro: "A woman carrying a small suitcase stops by. She says: "Your food smells familiar… but the city feels so new."",
+    intro: "A woman carrying a small suitcase stops by. She says: \"Your food smells familiar... but the city feels so new.\"",
     reactions: {
       communication: {
         warm: "You make me feel like I belong here.",
-        respectful: "Polite and kind — like a safe harbor.",
+        respectful: "Polite and kind - like a safe harbor.",
         humor: "Haha, maybe laughter sounds the same in every language."
       },
       ingredients: {
-        traditional: "This taste… it brings back memories of home.",
-        spicy: "Strong and fiery — like starting a new life.",
+        traditional: "This taste... it brings back memories of home.",
+        spicy: "Strong and fiery - like starting a new life.",
         experimental: "It's like two places meeting in one bite."
       },
       presentation: {
-        handmade: "It feels personal — like something made for me.",
-        paper: "I'll take it on my walk — my journey continues.",
-        garnish: "So vibrant… like the markets I miss."
+        handmade: "It feels personal - like something made for me.",
+        paper: "I'll take it on my walk - my journey continues.",
+        garnish: "So vibrant... like the markets I miss."
       }
     }
   },
@@ -50,21 +50,21 @@ const CUSTOMERS = [
     id: 2,
     name: 'Art Student',
     emoji: '🎨',
-    intro: "A quiet young artist with paint on her hands appears. She says: "I'm searching for inspiration… maybe flavor can spark it."",
+    intro: "A quiet young artist with paint on her hands appears. She says: \"I'm searching for inspiration... maybe flavor can spark it.\"",
     reactions: {
       communication: {
-        warm: "Your energy feels… like a sunrise after an all-nighter.",
+        warm: "Your energy feels... like a sunrise after an all-nighter.",
         respectful: "I like how you give space. Inspiration needs silence.",
-        humor: "Haha, you're playful — that's rare in serious artists."
+        humor: "Haha, you're playful - that's rare in serious artists."
       },
       ingredients: {
         traditional: "Simple. Honest. Like a clean canvas.",
         spicy: "Bold! That's passion in edible form.",
-        experimental: "Fusion… chaos… I love it."
+        experimental: "Fusion... chaos... I love it."
       },
       presentation: {
         handmade: "It's like edible art.",
-        paper: "Casual, fleeting — like street sketches.",
+        paper: "Casual, fleeting - like street sketches.",
         garnish: "Color! You understand aesthetics!"
       }
     }
