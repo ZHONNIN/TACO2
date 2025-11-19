@@ -242,7 +242,8 @@ function loadCustomer() {
   document.getElementById('round-num').textContent = gameState.roundIndex + 1;
   document.getElementById('round-name').textContent = round.name;
 
-  // Hide choices BEFORE typing starts
+  // Show dialog, hide choices BEFORE typing starts
+  showDialog();
   hideChoices();
 
   // Hide next button
@@ -255,9 +256,28 @@ function loadCustomer() {
   gameState.isTyping = true;
   typeText(dialogText, text, 25).then(() => {
     gameState.isTyping = false;
-    // Show choices ONLY after typing finishes
-    showChoices();
+    // After typing finishes, wait a bit, then hide dialog and show choices
+    setTimeout(() => {
+      hideDialog();
+      setTimeout(() => {
+        showChoices();
+      }, 300);
+    }, 500);
   });
+}
+
+function showDialog() {
+  const dialogBox = document.querySelector('.dialog-box');
+  if (dialogBox) {
+    dialogBox.classList.remove('hidden');
+  }
+}
+
+function hideDialog() {
+  const dialogBox = document.querySelector('.dialog-box');
+  if (dialogBox) {
+    dialogBox.classList.add('hidden');
+  }
 }
 
 function showChoices() {
@@ -292,7 +312,7 @@ async function handleChoice(choiceIndex) {
   const round = ROUNDS[gameState.roundIndex];
   const choice = round.choices[choiceIndex];
 
-  // Hide choices
+  // Hide choices immediately
   hideChoices();
 
   // Apply tone
@@ -313,14 +333,20 @@ async function handleChoice(choiceIndex) {
     reaction: reaction
   });
 
-  // Show reaction
+  // Wait a moment, then show dialog for reaction
+  await new Promise(resolve => setTimeout(resolve, 300));
+  showDialog();
+
+  // Show reaction with typing effect
   const dialogText = document.getElementById('dialog-text');
   gameState.isTyping = true;
   await typeText(dialogText, reaction, 25);
   gameState.isTyping = false;
 
-  // Show next button
-  document.getElementById('next-btn').classList.remove('hidden');
+  // After reaction finishes, wait before showing Next button
+  setTimeout(() => {
+    document.getElementById('next-btn').classList.remove('hidden');
+  }, 600);
 }
 
 function handleNext() {
