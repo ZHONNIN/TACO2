@@ -43,6 +43,7 @@ body {
     min-height: 100vh;
 
     /* TWO-LAYER BACKGROUND: gradient (top) + image (bottom) */
+    background-color: #1a2838; /* Fallback if image missing */
     background-image: var(--bg), url('background.png');
     background-size: cover, cover;
     background-position: center, center;
