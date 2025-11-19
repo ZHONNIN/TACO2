@@ -487,6 +487,14 @@ async function handleCombinedChoice() {
     } else if (gameState.selectedPlate.key === 'garnish') {
       tacoImageSrc = 'Taco2-3.png';
     }
+  } else if (gameState.selectedFlavor.key === 'experimental') {
+    if (gameState.selectedPlate.key === 'handmade') {
+      tacoImageSrc = 'Taco3-1.png';
+    } else if (gameState.selectedPlate.key === 'paper') {
+      tacoImageSrc = 'Taco3-2.png';
+    } else if (gameState.selectedPlate.key === 'garnish') {
+      tacoImageSrc = 'Taco3-3.png';
+    }
   }
 
   // If we have a taco image to show, display the preview animation
