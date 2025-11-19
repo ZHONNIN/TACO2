@@ -171,7 +171,7 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     border: none;
     border-radius: 0;
     box-shadow: none;
-    margin: 2.5rem auto 2.5rem;
+    margin: 4rem auto 3rem;
 }
 
 .emoji {
@@ -179,8 +179,8 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 }
 
 .portrait-image {
-    max-width: 270px;
-    width: 270px;
+    max-width: 608px;
+    width: 608px;
     height: auto;
     object-fit: contain;
     display: block;
@@ -209,6 +209,10 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
     font-size: 1.2rem;
     line-height: 1.8;
     color: var(--text);
+}
+
+.dialog-box.hidden {
+    display: none;
 }
 
 /* ==================== ROUND INFO ==================== */
