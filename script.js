@@ -468,12 +468,22 @@ async function handleCombinedChoice() {
     reaction: combinedReaction
   });
 
-  // Check if combination is traditional + handmade
-  const isTraditionalHandmade = gameState.selectedFlavor.key === 'traditional' && gameState.selectedPlate.key === 'handmade';
+  // Check if combination is traditional flavor with any plate style
+  let tacoImageSrc = null;
 
-  if (isTraditionalHandmade) {
-    // Show taco preview animation for 2 seconds
-    await showTacoPreview();
+  if (gameState.selectedFlavor.key === 'traditional') {
+    if (gameState.selectedPlate.key === 'handmade') {
+      tacoImageSrc = 'Taco1-1.png';
+    } else if (gameState.selectedPlate.key === 'paper') {
+      tacoImageSrc = 'Taco1-2.png';
+    } else if (gameState.selectedPlate.key === 'garnish') {
+      tacoImageSrc = 'Taco1-3.png';
+    }
+  }
+
+  // If we have a taco image to show, display the preview animation
+  if (tacoImageSrc) {
+    await showTacoPreview(tacoImageSrc);
   }
 
   // Wait a moment, then show dialog for reaction
@@ -492,8 +502,12 @@ async function handleCombinedChoice() {
   }, 600);
 }
 
-async function showTacoPreview() {
+async function showTacoPreview(imageSrc) {
   const tacoPreview = document.getElementById('taco-preview');
+  const tacoImage = tacoPreview.querySelector('img');
+
+  // Set the image source to the appropriate taco image
+  tacoImage.src = imageSrc;
 
   // Remove hidden class and add show class to trigger animation
   tacoPreview.classList.remove('hidden');
