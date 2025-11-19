@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Taste of Choice</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body data-tone="night-base">
+    <!-- INTRO SCENE -->
+    <section id="intro" class="scene active">
+        <div class="container">
+            <h1 class="title">The Taste of Choice</h1>
+            <p class="subtitle">Every flavor tells a story.</p>
+            <button id="start-btn" class="primary-btn">Start Your Taco Stand</button>
+        </div>
+    </section>
+
+    <!-- CUSTOMERS SCENE -->
+    <section id="customers" class="scene">
+        <div class="container">
+            <div class="customer-header">
+                <p class="customer-counter">Customer <span id="customer-num">1</span> / 3</p>
+                <div class="customer-portrait">
+                    <span id="customer-emoji" class="emoji">💼</span>
+                </div>
+                <h2 id="customer-name" class="customer-name">Customer</h2>
+            </div>
+
+            <div class="dialog-box">
+                <p id="dialog-text" class="dialog-text"></p>
+            </div>
+
+            <div class="round-info">
+                <p id="round-label">Round <span id="round-num">1</span> of 3: <span id="round-name">Communication Style</span></p>
+            </div>
+
+            <div id="choices-container" class="choices-container">
+                <button class="choice-btn" data-choice="0"></button>
+                <button class="choice-btn" data-choice="1"></button>
+                <button class="choice-btn" data-choice="2"></button>
+            </div>
+
+            <button id="next-btn" class="primary-btn hidden">Next</button>
+        </div>
+    </section>
+
+    <!-- OUTCOME SCENE -->
+    <section id="outcome" class="scene">
+        <div class="container">
+            <h1 class="title">The Night Ends</h1>
+            <div class="outcome-content">
+                <p class="outcome-intro">Three souls passed through your stand tonight.</p>
+                <div id="outcome-summary" class="outcome-summary"></div>
+                <p class="outcome-reflection">Every choice you made shaped their experience. In this fleeting night market, you offered more than food — you offered connection, comfort, and understanding.</p>
+                <p class="outcome-message">Your taco stand may be small, but tonight, it was someone's whole world.</p>
+            </div>
+            <button id="restart-btn" class="primary-btn">Start Again</button>
+        </div>
+    </section>
+
+    <!-- Audio elements -->
+    <audio id="ambient-audio" loop>
+        <!-- Optional: Add ambient audio source here -->
+        <!-- <source src="ambient.mp3" type="audio/mpeg"> -->
+    </audio>
+    <audio id="select-audio">
+        <!-- Optional: Add select sound source here -->
+        <!-- <source src="select.mp3" type="audio/mpeg"> -->
+    </audio>
+</body>
+</html>
