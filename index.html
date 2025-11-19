@@ -33,13 +33,34 @@
             </div>
 
             <div class="round-info">
-                <p id="round-label">Round <span id="round-num">1</span> of 3: <span id="round-name">Communication Style</span></p>
+                <p id="round-label">Round <span id="round-num">1</span> of 2: <span id="round-name">Communication Style</span></p>
             </div>
 
+            <!-- Single-choice container for Round 1 -->
             <div id="choices-container" class="choices-container">
                 <button class="choice-btn" data-choice="0"></button>
                 <button class="choice-btn" data-choice="1"></button>
                 <button class="choice-btn" data-choice="2"></button>
+            </div>
+
+            <!-- Combined Flavor & Plate container for Round 2 -->
+            <div id="combined-choices-container" class="combined-choices-container hidden">
+                <div class="choice-section">
+                    <h3 class="choice-section-title">Choose Your Flavor</h3>
+                    <div id="flavor-choices" class="flavor-choices">
+                        <button class="flavor-btn choice-card" data-flavor="0"></button>
+                        <button class="flavor-btn choice-card" data-flavor="1"></button>
+                        <button class="flavor-btn choice-card" data-flavor="2"></button>
+                    </div>
+                </div>
+                <div class="choice-section">
+                    <h3 class="choice-section-title">Choose Your Plate Style</h3>
+                    <div id="plate-choices" class="plate-choices">
+                        <button class="plate-btn choice-card" data-plate="0"></button>
+                        <button class="plate-btn choice-card" data-plate="1"></button>
+                        <button class="plate-btn choice-card" data-plate="2"></button>
+                    </div>
+                </div>
             </div>
 
             <button id="next-btn" class="primary-btn hidden">Next</button>

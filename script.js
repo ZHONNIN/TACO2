@@ -92,21 +92,17 @@ const ROUNDS = [
     ]
   },
   {
-    name: 'Ingredients',
-    type: 'ingredients',
-    choices: [
-      { label: 'Traditional taco (soft beef & onion)', key: 'traditional', tone: 'ingr-traditional' },
-      { label: 'Spicy taco (extra chili)', key: 'spicy', tone: 'ingr-spicy' },
-      { label: 'Experimental taco (fusion with pineapple)', key: 'experimental', tone: 'ingr-experimental' }
-    ]
-  },
-  {
-    name: 'Presentation',
-    type: 'presentation',
-    choices: [
-      { label: 'Handmade plate', key: 'handmade', tone: 'pres-handmade' },
-      { label: 'Paper wrap', key: 'paper', tone: 'pres-paper' },
-      { label: 'Bright colored garnish', key: 'garnish', tone: 'pres-garnish' }
+    name: 'Flavor & Presentation',
+    type: 'flavorPresentation',
+    flavorChoices: [
+      { label: 'Traditional taco (soft beef & onion)', key: 'traditional', tone: 'ingr-traditional', category: 'flavor' },
+      { label: 'Spicy taco (extra chili)', key: 'spicy', tone: 'ingr-spicy', category: 'flavor' },
+      { label: 'Experimental taco (fusion with pineapple)', key: 'experimental', tone: 'ingr-experimental', category: 'flavor' }
+    ],
+    plateChoices: [
+      { label: 'Handmade plate', key: 'handmade', tone: 'pres-handmade', category: 'plate' },
+      { label: 'Paper wrap', key: 'paper', tone: 'pres-paper', category: 'plate' },
+      { label: 'Bright colored garnish', key: 'garnish', tone: 'pres-garnish', category: 'plate' }
     ]
   }
 ];
@@ -116,8 +112,10 @@ let gameState = {
   scene: 'intro',
   customerIndex: 0,
   roundIndex: 0,
-  choicesLog: [], // Array of { customerId, customerName, roundType, choiceKey, choiceLabel, reaction }
-  isTyping: false
+  choicesLog: [],
+  isTyping: false,
+  selectedFlavor: null,
+  selectedPlate: null
 };
 
 // ==================== AUDIO ====================
@@ -135,10 +133,22 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('next-btn').addEventListener('click', handleNext);
   document.getElementById('restart-btn').addEventListener('click', restartGame);
 
-  // Bind choice buttons
+  // Bind choice buttons (Round 1)
   const choiceBtns = document.querySelectorAll('.choice-btn');
   choiceBtns.forEach(btn => {
     btn.addEventListener('click', (e) => handleChoice(e.target.dataset.choice));
+  });
+
+  // Bind flavor buttons (Round 2)
+  const flavorBtns = document.querySelectorAll('.flavor-btn');
+  flavorBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => handleFlavorSelection(e.target.dataset.flavor));
+  });
+
+  // Bind plate buttons (Round 2)
+  const plateBtns = document.querySelectorAll('.plate-btn');
+  plateBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => handlePlateSelection(e.target.dataset.plate));
   });
 });
 
@@ -211,7 +221,9 @@ function startGame() {
     customerIndex: 0,
     roundIndex: 0,
     choicesLog: [],
-    isTyping: false
+    isTyping: false,
+    selectedFlavor: null,
+    selectedPlate: null
   };
 
   // Switch to customers scene
@@ -290,8 +302,28 @@ function hideDialog() {
 
 function showChoices() {
   const round = ROUNDS[gameState.roundIndex];
-  const choiceBtns = document.querySelectorAll('.choice-btn');
 
+  // Reset selections for Round 2
+  gameState.selectedFlavor = null;
+  gameState.selectedPlate = null;
+
+  if (round.type === 'flavorPresentation') {
+    // Show combined flavor & plate choices for Round 2
+    showCombinedChoices(round);
+  } else {
+    // Show single choices for Round 1
+    showSingleChoices(round);
+  }
+}
+
+function showSingleChoices(round) {
+  const choicesContainer = document.getElementById('choices-container');
+  const combinedContainer = document.getElementById('combined-choices-container');
+
+  choicesContainer.classList.remove('hidden');
+  combinedContainer.classList.add('hidden');
+
+  const choiceBtns = document.querySelectorAll('.choice-btn');
   choiceBtns.forEach((btn, index) => {
     if (index < round.choices.length) {
       btn.textContent = round.choices[index].label;
@@ -303,12 +335,153 @@ function showChoices() {
   });
 }
 
+function showCombinedChoices(round) {
+  const choicesContainer = document.getElementById('choices-container');
+  const combinedContainer = document.getElementById('combined-choices-container');
+
+  choicesContainer.classList.add('hidden');
+  combinedContainer.classList.remove('hidden');
+
+  // Setup flavor buttons
+  const flavorBtns = document.querySelectorAll('.flavor-btn');
+  flavorBtns.forEach((btn, index) => {
+    if (index < round.flavorChoices.length) {
+      btn.textContent = round.flavorChoices[index].label;
+      btn.classList.remove('hidden', 'selected');
+      btn.disabled = false;
+    } else {
+      btn.classList.add('hidden');
+    }
+  });
+
+  // Setup plate buttons
+  const plateBtns = document.querySelectorAll('.plate-btn');
+  plateBtns.forEach((btn, index) => {
+    if (index < round.plateChoices.length) {
+      btn.textContent = round.plateChoices[index].label;
+      btn.classList.remove('hidden', 'selected');
+      btn.disabled = false;
+    } else {
+      btn.classList.add('hidden');
+    }
+  });
+}
+
 function hideChoices() {
+  // Hide single choices
   const choiceBtns = document.querySelectorAll('.choice-btn');
   choiceBtns.forEach(btn => {
     btn.classList.add('hidden');
     btn.disabled = true;
   });
+
+  // Hide combined choices
+  const combinedContainer = document.getElementById('combined-choices-container');
+  if (combinedContainer) {
+    combinedContainer.classList.add('hidden');
+  }
+}
+
+function handleFlavorSelection(flavorIndex) {
+  playSelect();
+
+  const round = ROUNDS[gameState.roundIndex];
+  const flavor = round.flavorChoices[flavorIndex];
+
+  // Mark this flavor as selected
+  gameState.selectedFlavor = flavor;
+
+  // Update UI - highlight selected flavor
+  const flavorBtns = document.querySelectorAll('.flavor-btn');
+  flavorBtns.forEach((btn, index) => {
+    if (index === parseInt(flavorIndex)) {
+      btn.classList.add('selected');
+    } else {
+      btn.classList.remove('selected');
+    }
+  });
+
+  // Check if both flavor and plate are selected
+  checkCombinedSelection();
+}
+
+function handlePlateSelection(plateIndex) {
+  playSelect();
+
+  const round = ROUNDS[gameState.roundIndex];
+  const plate = round.plateChoices[plateIndex];
+
+  // Mark this plate as selected
+  gameState.selectedPlate = plate;
+
+  // Update UI - highlight selected plate
+  const plateBtns = document.querySelectorAll('.plate-btn');
+  plateBtns.forEach((btn, index) => {
+    if (index === parseInt(plateIndex)) {
+      btn.classList.add('selected');
+    } else {
+      btn.classList.remove('selected');
+    }
+  });
+
+  // Check if both flavor and plate are selected
+  checkCombinedSelection();
+}
+
+async function checkCombinedSelection() {
+  if (gameState.selectedFlavor && gameState.selectedPlate) {
+    // Both selected - proceed with combined reaction
+    await handleCombinedChoice();
+  }
+}
+
+async function handleCombinedChoice() {
+  if (gameState.isTyping) return;
+
+  const customer = CUSTOMERS[gameState.customerIndex];
+  const round = ROUNDS[gameState.roundIndex];
+
+  // Hide choices immediately
+  hideChoices();
+
+  // Get both reactions
+  const flavorReaction = customer.reactions.ingredients[gameState.selectedFlavor.key];
+  const plateReaction = customer.reactions.presentation[gameState.selectedPlate.key];
+
+  // Combine reactions
+  const combinedReaction = `${flavorReaction} ${plateReaction}`;
+
+  // Log the combined choice
+  gameState.choicesLog.push({
+    customerId: customer.id,
+    customerName: customer.name,
+    customerEmoji: customer.emoji,
+    customerUseImage: customer.useImage,
+    customerImageSrc: customer.imageSrc,
+    customerImageClass: customer.imageClass,
+    roundType: round.type,
+    roundName: round.name,
+    flavorKey: gameState.selectedFlavor.key,
+    flavorLabel: gameState.selectedFlavor.label,
+    plateKey: gameState.selectedPlate.key,
+    plateLabel: gameState.selectedPlate.label,
+    reaction: combinedReaction
+  });
+
+  // Wait a moment, then show dialog for reaction
+  await new Promise(resolve => setTimeout(resolve, 300));
+  showDialog();
+
+  // Show combined reaction with typing effect
+  const dialogText = document.getElementById('dialog-text');
+  gameState.isTyping = true;
+  await typeText(dialogText, combinedReaction, 25);
+  gameState.isTyping = false;
+
+  // After reaction finishes, wait before showing Next button
+  setTimeout(() => {
+    document.getElementById('next-btn').classList.remove('hidden');
+  }, 600);
 }
 
 async function handleChoice(choiceIndex) {
@@ -421,9 +594,18 @@ function showOutcome() {
     customerDiv.appendChild(header);
 
     group.choices.forEach(choice => {
-      const choicePara = document.createElement('p');
-      choicePara.innerHTML = `<strong>${choice.roundName}:</strong> ${choice.choiceLabel}`;
-      customerDiv.appendChild(choicePara);
+      // Handle different round types
+      if (choice.roundType === 'flavorPresentation') {
+        // Combined round - show both flavor and plate
+        const choicePara = document.createElement('p');
+        choicePara.innerHTML = `<strong>${choice.roundName}:</strong><br>Flavor: ${choice.flavorLabel}<br>Plate: ${choice.plateLabel}`;
+        customerDiv.appendChild(choicePara);
+      } else {
+        // Single choice round
+        const choicePara = document.createElement('p');
+        choicePara.innerHTML = `<strong>${choice.roundName}:</strong> ${choice.choiceLabel}`;
+        customerDiv.appendChild(choicePara);
+      }
 
       const reactionPara = document.createElement('p');
       reactionPara.innerHTML = `<em>"${choice.reaction}"</em>`;
@@ -440,7 +622,9 @@ function restartGame() {
     customerIndex: 0,
     roundIndex: 0,
     choicesLog: [],
-    isTyping: false
+    isTyping: false,
+    selectedFlavor: null,
+    selectedPlate: null
   };
 
   switchScene('intro');
