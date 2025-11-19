@@ -315,8 +315,8 @@ async function handleChoice(choiceIndex) {
   // Hide choices immediately
   hideChoices();
 
-  // Apply tone
-  setTone(choice.tone);
+  // Apply tone (disabled - background stays constant)
+  // setTone(choice.tone);
 
   // Log the choice
   const reaction = customer.reactions[round.type][choice.key];
@@ -363,7 +363,7 @@ function handleNext() {
 
     if (gameState.customerIndex < CUSTOMERS.length) {
       // Load next customer
-      setTone('night-base');
+      // setTone('night-base'); // Disabled - background stays constant
       setTimeout(() => {
         loadCustomer();
       }, 400);
@@ -376,7 +376,7 @@ function handleNext() {
 
 function showOutcome() {
   switchScene('outcome');
-  setTone('night-base');
+  // setTone('night-base'); // Disabled - background stays constant
 
   // Build summary
   const summaryContainer = document.getElementById('outcome-summary');
