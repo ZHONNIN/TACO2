@@ -242,6 +242,12 @@ function loadCustomer() {
   document.getElementById('round-num').textContent = gameState.roundIndex + 1;
   document.getElementById('round-name').textContent = round.name;
 
+  // Hide choices BEFORE typing starts
+  hideChoices();
+
+  // Hide next button
+  document.getElementById('next-btn').classList.add('hidden');
+
   // Type intro or prompt for next round
   const dialogText = document.getElementById('dialog-text');
   const text = gameState.roundIndex === 0 ? customer.intro : `What will you serve?`;
@@ -249,11 +255,9 @@ function loadCustomer() {
   gameState.isTyping = true;
   typeText(dialogText, text, 25).then(() => {
     gameState.isTyping = false;
+    // Show choices ONLY after typing finishes
     showChoices();
   });
-
-  // Hide next button
-  document.getElementById('next-btn').classList.add('hidden');
 }
 
 function showChoices() {
@@ -274,6 +278,7 @@ function showChoices() {
 function hideChoices() {
   const choiceBtns = document.querySelectorAll('.choice-btn');
   choiceBtns.forEach(btn => {
+    btn.classList.add('hidden');
     btn.disabled = true;
   });
 }

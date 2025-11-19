@@ -179,8 +179,8 @@ body[data-tone="pres-garnish"] { --bg: var(--tone-pres-garnish); }
 }
 
 .portrait-image {
-    max-width: 180px;
-    width: 180px;
+    max-width: 270px;
+    width: 270px;
     height: auto;
     object-fit: contain;
     display: block;
